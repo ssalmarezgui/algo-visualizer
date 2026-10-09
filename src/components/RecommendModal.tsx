@@ -22,9 +22,9 @@ export const RecommendModal: React.FC<RecommendModalProps> = ({ isOpen, onClose 
     setLoading(true);
 
     // --- CONFIGURATION EMAILJS ---
-    const SERVICE_ID = "service_fkbvu6t"; 
-    const TEMPLATE_ID = "template_3d4fvth";
-    const PUBLIC_KEY = "JRsxhl3HOIAMT9DH6";
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID; 
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     const templateParams = {
       title: "Nouvelle suggestion d'algorithme",
