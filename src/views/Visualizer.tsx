@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import type { AlgorithmInfo, SortingStep } from '../types';
+import { ALGORITHM_REGISTRY } from '../algorithms/registry'; // <-- On importe le registre
 import { Button } from '../components/Button';
 import { Play, Pause, RotateCcw, ArrowLeft, FastForward, Code } from 'lucide-react';
-import type { AlgorithmInfo, SortingStep } from '../types';
-import { BUBBLE_CODE_LINES, bubbleSort } from '../algorithms/bublleSort';
-import { SELECTION_CODE_LINES, selectionSort } from '../algorithms/selectionSort';
-import { INSERTION_CODE_LINES, insertionSort } from '../algorithms/insertionSort';
 
 interface VisualizerProps {
   algorithm: AlgorithmInfo;
   onBack: () => void;
 }
-
-
 
 export const Visualizer: React.FC<VisualizerProps> = ({ algorithm, onBack }) => {
   const [array, setArray] = useState<number[]>([]);
@@ -26,10 +22,10 @@ export const Visualizer: React.FC<VisualizerProps> = ({ algorithm, onBack }) => 
 
   const timeoutRef = useRef<number | null>(null);
 
-  const codeLines = 
-    algorithm.id === 'selection' ? SELECTION_CODE_LINES :
-    algorithm.id === 'insertion' ? INSERTION_CODE_LINES : 
-    BUBBLE_CODE_LINES;
+  // Récupérer dynamiquement les lignes de code et la fonction de tri depuis le registre
+  const algoConfig = ALGORITHM_REGISTRY[algorithm.id];
+  const codeLines = algoConfig ? algoConfig.codeLines : [];
+
   const generateNewArray = () => {
     setIsPlaying(false);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -37,22 +33,18 @@ export const Visualizer: React.FC<VisualizerProps> = ({ algorithm, onBack }) => 
     const randomArray = Array.from({ length: 10 }, () => Math.floor(Math.random() * 80) + 10);
     setArray(randomArray);
 
-    let computedSteps: React.SetStateAction<SortingStep[]> = [];
-    if (algorithm.id === 'bubble') {
-        computedSteps = bubbleSort(randomArray);
-    } else if (algorithm.id === 'selection') {
-        computedSteps = selectionSort(randomArray);
-    } else if (algorithm.id === 'insertion') {
-        computedSteps = insertionSort(randomArray);
+    if (algoConfig && algoConfig.sortFn) {
+      const computedSteps = algoConfig.sortFn(randomArray);
+      setSteps(computedSteps);
     }
-    setSteps(computedSteps);
 
     setCurrentStepIndex(0);
     setComparedIndices([]);
     setSwappedIndices([]);
     setSortedIndices([]);
     setActiveLine(null);
-    };
+  };
+
   useEffect(() => {
     generateNewArray();
     return () => {

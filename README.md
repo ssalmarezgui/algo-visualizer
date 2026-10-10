@@ -43,7 +43,7 @@ Testez l'application en direct ici : 👉 **[AlgoVisualizer Live Demo](https://a
 Si vous souhaitez exécuter ce projet sur votre machine :
 
 1. Clonez le dépôt :
-   ```bash
+  ```bash
    git clone https://github.com/ssalmarezgui/algo-visualizer.git
   ```
 2. Installez les dépendances :

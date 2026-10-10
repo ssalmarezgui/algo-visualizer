@@ -1,6 +1,15 @@
-import type { SortingStep } from '../types';
+import type { AlgorithmInfo, SortingStep } from '../types';
 
-// Le code Python affiché pour l'Insertion Sort
+// 1. Les métadonnées pour le menu principal
+export const insertionInfo: AlgorithmInfo = {
+  id: 'insertion',
+  name: 'Insertion Sort',
+  description: 'Construit le tableau trié un élément à la fois en insérant chaque élément à sa place.',
+  timeComplexity: 'O(n²)',
+  spaceComplexity: 'O(1)',
+};
+
+// 2. Le code source affiché
 export const INSERTION_CODE_LINES = [
   "def insertion_sort(arr):",              // Ligne 1
   "    for i in range(1, len(arr)):",      // Ligne 2
@@ -11,6 +20,7 @@ export const INSERTION_CODE_LINES = [
   "            j -= 1",                    // Ligne 7
   "        arr[j + 1] = key"               // Ligne 8 (Insertion finale)
 ];
+
 
 export const insertionSort = (array: number[]): SortingStep[] => {
   const steps: SortingStep[] = [];

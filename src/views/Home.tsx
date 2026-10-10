@@ -1,5 +1,5 @@
 import React from 'react';
-import { SORTING_ALGORITHMS } from '../algorithms/sortingTypes';
+import { SORTING_ALGORITHMS } from '../algorithms/registry';
 import { Play, ArrowRight, Sparkles } from 'lucide-react';
 import type { AlgorithmInfo } from '../types';
 

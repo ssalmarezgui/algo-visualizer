@@ -1,6 +1,15 @@
-import type { SortingStep } from '../types';
+import type { AlgorithmInfo, SortingStep } from '../types';
 
-// Le code Python affiché pour le Selection Sort
+// 1. Les métadonnées pour le menu principal
+export const selectionInfo: AlgorithmInfo = {
+  id: 'selection',
+  name: 'Selection Sort',
+  description: 'Trouve le plus petit élément du tableau et le place au début, puis répète.',
+  timeComplexity: 'O(n²)',
+  spaceComplexity: 'O(1)',
+};
+
+// 2. Le code source affiché dans le visualiseur
 export const SELECTION_CODE_LINES = [
   "def selection_sort(arr):",              // Ligne 1
   "    n = len(arr)",                  // Ligne 2
@@ -12,6 +21,7 @@ export const SELECTION_CODE_LINES = [
   "        arr[i], arr[min_idx] = arr[min_idx], arr[i]" // Ligne 8 (Swap)
 ];
 
+// 3. La logique de tri
 export const selectionSort = (array: number[]): SortingStep[] => {
   const steps: SortingStep[] = [];
   const arr = [...array];
@@ -21,7 +31,6 @@ export const selectionSort = (array: number[]): SortingStep[] => {
   for (let i = 0; i < n; i++) {
     let minIdx = i;
 
-    // Ligne 4: min_idx = i
     steps.push({
       array: [...arr],
       comparing: [],
@@ -31,7 +40,6 @@ export const selectionSort = (array: number[]): SortingStep[] => {
     });
 
     for (let j = i + 1; j < n; j++) {
-      // Ligne 6: if arr[j] < arr[min_idx]: (Comparaison)
       steps.push({
         array: [...arr],
         comparing: [j, minIdx],
@@ -42,7 +50,6 @@ export const selectionSort = (array: number[]): SortingStep[] => {
 
       if (arr[j] < arr[minIdx]) {
         minIdx = j;
-        // Ligne 7: min_idx = j
         steps.push({
           array: [...arr],
           comparing: [],
@@ -54,7 +61,6 @@ export const selectionSort = (array: number[]): SortingStep[] => {
     }
 
     if (minIdx !== i) {
-      // Ligne 8: Swap
       [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
       steps.push({
         array: [...arr],
