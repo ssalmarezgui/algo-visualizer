@@ -47,7 +47,7 @@ def generer_code_algorithme(nom_algo):
          spaceComplexity: 'O(...)',
        }};
 
-    3. Exporter un tableau de chaînes de caractères contenant le code source de l'algorithme ligne par ligne, nommé `{nom_algo.toUpperCase().replace(' ', '_')}_CODE_LINES`.
+    3. Exporter un tableau de chaînes de caractères contenant le code source de l'algorithme ligne par ligne, nommé `{nom_algo.upper().replace(' ', '_')}_CODE_LINES`.
 
     4. Exporter une fonction de tri qui prend un tableau de nombres `array: number[]` et retourne un tableau de `SortingStep[]`, avec le suivi des lignes actives (`activeLine`).
 
@@ -68,7 +68,7 @@ def modifier_registry_avec_ia(nom_algo, contenu_actuel_registry):
     Je viens d'ajouter un nouvel algorithme nommé '{nom_algo}'. 
     Son identifiant est '{nom_algo.lower().replace(' ', '')}'.
     Le fichier du module s'appelle './{nom_algo.lower().replace(' ', '')}'.
-    Les exports à importer sont : `{nom_algo.lower().replace(' ', '')}Info`, `{nom_algo.toUpperCase().replace(' ', '_')}_CODE_LINES`, et `{nom_algo.lower().replace(' ', '')}Sort`.
+    Les exports à importer sont : `{nom_algo.lower().replace(' ', '')}Info`, `{nom_algo.upper().replace(' ', '_')}_CODE_LINES`, et `{nom_algo.lower().replace(' ', '')}Sort`.
 
     Modifie le fichier 'registry.ts' pour :
     1. Importer ce nouveau module en haut.
