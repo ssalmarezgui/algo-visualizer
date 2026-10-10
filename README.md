@@ -1,75 +1,78 @@
-# React + TypeScript + Vite
+# 🚀 AlgoVisualizer - Interactive Sorting & Code Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Une application web moderne et interactive développée pour visualiser en temps réel le fonctionnement des algorithmes de tri, associée à un suivi du code source en direct et un système de suggestion par e-mail.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?style=for-the-badge&logo=vercel)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+### 🌐 Lien de Déploiement
+Testez l'application en direct ici : 👉 **[AlgoVisualizer Live Demo](https://algo-visualizer-two-teal.vercel.app/)**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+### ✨ Fonctionnalités Principales
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Visualisation Dynamique :** Regardez les barres s'animer pas à pas (comparaisons en jaune, échanges en rouge, éléments triés en vert).
+- **Suivi du Code Source en Direct :** Un panneau affiche le véritable code Python de l'algorithme, avec un curseur qui surligne la ligne active en temps réel, exactement comme un débogueur.
+- **Contrôles Complets (VCR) :** Lancez, mettez en pause, réinitialisez, ou ajustez la vitesse de l'animation à la volée grâce à un curseur intuitif.
+- **Algorithmes Multiples :** 
+  - 🟡 *Bubble Sort* (Tri à bulles)
+  - 🔵 *Selection Sort* (Tri par sélection)
+  - 🟢 *Insertion Sort* (Tri par insertion)
+- **Système de Recommandation par E-mail :** Un formulaire de contact intégré qui envoie de vrais e-mails directement à l'administrateur via *EmailJS* pour suggérer de nouveaux algorithmes.
+- **Design Moderne & Dark Mode :** Interface épurée conçue avec *Tailwind CSS*.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🛠️ Stack Technique
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Frontend :** React, TypeScript, Vite
+- **Styling :** Tailwind CSS
+- **Icônes :** Lucide React
+- **Services tiers :** EmailJS (Gestion des e-mails sans backend)
+- **Hébergement :** Vercel
 
-```
+---
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 📦 Installation et Lancement Local
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Si vous souhaitez exécuter ce projet sur votre machine :
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/ssalmarezgui/algo-visualizer.git
+  ```
+2. Installez les dépendances :
+  ```bash 
+  npm install
+  ```
+3. Créez un fichier .env à la racine basé sur .env.exemple et ajoutez vos clés EmailJS :
+  ```bash
+  VITE_EMAILJS_SERVICE_ID=votre_service_id
+  VITE_EMAILJS_TEMPLATE_ID=votre_template_id
+  VITE_EMAILJS_PUBLIC_KEY=votre_public_key
+  ```
+4. Lancez le serveur de développement :
+  ```bash
+  npm run dev
+  ```
 
+---
+### 👩‍💻 Auteure
+Développé avec ❤️ par **Salma Rezgui**.
+
+---
+
+### 🚀 Pousser les modifications sur GitHub :
+
+Une fois que tu as sauvegardé ton `README.md` dans VS Code, retourne dans ton terminal et tape ces 3 commandes pour mettre à jour ton dépôt GitHub :
+
+```bash
+git add README.md
+git commit -m "docs: add a professional README with live demo link"
+git push origin main
 ```
