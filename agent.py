@@ -21,26 +21,57 @@ if not GITHUB_TOKEN:
 
 def generer_code_algorithme(nom_algo):
     prompt = f"""
-    Tu es un compilateur de code et un développeur expert en TypeScript et React. 
-    Ton unique tâche est de rédiger le code source d'un module TypeScript pour l'algorithme '{nom_algo}'.
+    Tu es un développeur expert en TypeScript et React. 
+    Ton travail est de créer un nouveau module d'algorithme de tri pour notre application web "AlgoVisualizer".
+    
+    Le fichier doit être 100% en TypeScript et respecter EXACTEMENT cette structure :
 
-    REGLES ABSOLUES ET NON NEGOCIABLES :
-    1. Renvoie UNIQUEMENT du code TypeScript pur. 
-    2. INTERDICTION ABSOLUE d'inclure du texte explicatif, de la conversation ou des salutations avant ou après le code.
-    3. INTERDICTION ABSOLUE d'utiliser les balises markdown (pas de ```typescript et pas de ```). Le premier caractère de ta réponse DOIT être 'import' et le dernier doit être la dernière accolade '}}'.
-    4. La structure du type SortingStep est UNIQUEMENT : {{ array: number[], comparing: number[], swapping: number[], sorted: number[], activeLine: number }}. N'utilise JAMAIS de propriété 'changes'.
+    1. Importer les types nécessaires :
+       import type {{ AlgorithmInfo, SortingStep }} from '../types';
 
-    Voici un exemple exact de la structure attendue pour les étapes :
-    steps.push({{ array: [...arr], comparing: [j, j + 1], swapping: [], sorted: [...sortedIndices], activeLine: 5 }});
+    2. Exporter un objet de métadonnées nommé `{nom_algo.lower().replace(' ', '')}Info` de type `AlgorithmInfo` :
+       export const {nom_algo.lower().replace(' ', '')}Info: AlgorithmInfo = {{
+         id: '{nom_algo.lower().replace(' ', '')}',
+         name: '{nom_algo}',
+         description: 'Description de l\\'algorithme.',
+         timeComplexity: 'O(...)',
+         spaceComplexity: 'O(...)',
+       }};
 
-    Rédige le code complet pour : {nom_algo}
+    3. Exporter un tableau de chaînes de caractères contenant le code source de l'algorithme ligne par ligne, nommé `{nom_algo.toUpperCase().replace(' ', '_')}_CODE_LINES`.
+
+    4. Exporter une fonction de tri qui prend un tableau de nombres `array: number[]` et retourne un tableau de `SortingStep[]`, avec le suivi des lignes actives (`activeLine`).
+
+    Règles strictes :
+    - Renvoie UNIQUEMENT le code TypeScript pur, sans texte explicatif, sans balises markdown ```typescript.
     """
-    
     code_brut = interroger_ollama(prompt)
-    
-    code_propre = code_brut.replace("```typescript", "").replace("```ts", "").replace("```", "").strip()
-    
-    return code_propre
+    return code_brut.replace("```typescript", "").replace("```ts", "").replace("```", "").strip()
+
+
+def modifier_registry_avec_ia(nom_algo, contenu_actuel_registry):
+    prompt = f"""
+    Tu es un développeur expert en TypeScript. 
+    Voici le contenu actuel du fichier 'registry.ts' de notre application React :
+
+    {contenu_actuel_registry}
+
+    Je viens d'ajouter un nouvel algorithme nommé '{nom_algo}'. 
+    Son identifiant est '{nom_algo.lower().replace(' ', '')}'.
+    Le fichier du module s'appelle './{nom_algo.lower().replace(' ', '')}'.
+    Les exports à importer sont : `{nom_algo.lower().replace(' ', '')}Info`, `{nom_algo.toUpperCase().replace(' ', '_')}_CODE_LINES`, et `{nom_algo.lower().replace(' ', '')}Sort`.
+
+    Modifie le fichier 'registry.ts' pour :
+    1. Importer ce nouveau module en haut.
+    2. L'ajouter dans le tableau `SORTING_ALGORITHMS`.
+    3. L'ajouter dans l'objet `ALGORITHM_REGISTRY`.
+
+    Règles strictes :
+    - Renvoie UNIQUEMENT le code TypeScript complet et mis à jour du fichier registry.ts.
+    - Pas de texte autour, pas de balises markdown ```typescript.
+    """
+    code_brut = interroger_ollama(prompt)
+    return code_brut.replace("```typescript", "").replace("```ts", "").replace("```", "").strip()
 
 
 
@@ -120,14 +151,8 @@ def creer_pull_request_github(nom_algo, code_genere):
     print(f" Pull Request créée avec succès : {pr.html_url}")
 
 if __name__ == "__main__":
-    algorithme_demande = "Merge Sort"
-
-    print(f"Lancement de l'agent pour : {algorithme_demande}")
-
-    code_ia = generer_code_algorithme(algorithme_demande)
-
-    if code_ia:
-        creer_pull_request_github(algorithme_demande, code_ia)
-
+    # Test avec un nouvel algorithme (ex: Quick Sort)
+    algorithme_demande = "Quick Sort"
+    creer_pull_request_github(algorithme_demande)
 
     
